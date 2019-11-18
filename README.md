@@ -7,16 +7,13 @@ To install this:
 1. RUN `npm i`
 2. Rename `.env.example` to `.env`, and update the values accordingly.
 
-## Build
-
-Run `npm run build` to build the code.
-Run `npm run scripts:seeder` to create needed tables and seed data.
-
 ## Starting the Service
 
 To run this service:
 
 Run this command: `docker-compose up --build`
+
+If database dependecies are not yet initialized, run the seeder
 
 ## Stopping the Service
 
