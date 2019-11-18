@@ -3,6 +3,11 @@
   "version": "1.0.0",
   "author": "Neil Palima",
   "main": "./dist/src/server.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/neilpalima/test.git"
+  },
+  "license": "MIT",
   "scripts": {
     "start": "if-env NODE_ENV=local && npm run start:dev || npm run start:prod",
     "start:prod": "node ./dist/src/server.js",
