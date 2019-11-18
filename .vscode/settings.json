@@ -1,0 +1,15 @@
+{
+    "editor.tabSize": 2,
+    "editor.insertSpaces": true,
+    "prettier.singleQuote": true,
+    "prettier.printWidth": 120,
+    "files.eol": "\n",
+    "gitlens.codeLens.enabled": false,
+    "window.zoomLevel": 0,
+    "typescript.tsdk": "node_modules/typescript/lib",
+    "eslint.autoFixOnSave": true,
+    "eslint.validate": [
+        "javascript",
+        {"language": "typescript", "autoFix": true },
+    ],
+}
