@@ -24,7 +24,7 @@ class User extends Model<User> {
 
   @HasMany(() => Follower, 'following_user_id')
   public followers: Follower[];
-s
+
   @HasMany(() => Follower, 'follower_user_id')
   public following: Follower[];
 }
