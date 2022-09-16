@@ -1,0 +1,365 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "version": "1.0.0-oas3",
+    "title": "dd-payment-callback Swagger Docs",
+    "description": "Callback service for direct debit"
+  },
+  "servers": [
+    {
+      "description": "SwaggerHub API Auto Mocking",
+      "url": "https://virtserver.swaggerhub.com/Xendit/dd-payment-callback/1.0.0-oas3"
+    },
+    {
+      "description": "Local development",
+      "url": "http://localhost:3000"
+    },
+    {
+      "description": "Sandbox development",
+      "url": "ph-ubp-billpayment-sandbox.xendit.co"
+    }
+  ],
+  "paths": {
+    "/channel_payments/codes/{id}": {
+      "get": {
+        "tags": [
+          "Payment Codes"
+        ],
+        "summary": "Get Payment Code",
+        "operationId": "getPaymentCode",
+        "description": "Get payment Code",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Public-key",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "header",
+            "name": "Idempotency-key",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "header",
+            "name": "Signature",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Payment Code",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "fa7aa8cb4ad01e9e"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetPaymentCodeResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error404Response"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/channel_payments/transactions": {
+      "post": {
+        "tags": [
+          "Payment Codes"
+        ],
+        "summary": "Post Payment",
+        "operationId": "Post payment",
+        "description": "Post payment",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Public-key",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "header",
+            "name": "Idempotency-key",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "header",
+            "name": "Signature",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PostPaymentRequest"
+              }
+            }
+          },
+          "description": "Authorization code request"
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PostPaymentResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400Response"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error403Response"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error404Response"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error409Response"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error500Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "GetPaymentCodeResponse": {
+        "type": "object",
+        "required": [
+          "payment_code",
+          "currency",
+          "status"
+        ],
+        "properties": {
+          "payment_code": {
+            "type": "string"
+          },
+          "currency": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          }
+        }
+      },
+      "PostPaymentRequest": {
+        "type": "object",
+        "required": [
+          "reference_id",
+          "payment_code",
+          "currency",
+          "amount"
+        ],
+        "properties": {
+          "reference_id": {
+            "type": "string"
+          },
+          "payment_code": {
+            "type": "string"
+          },
+          "currency": {
+            "type": "string"
+          },
+          "amount": {
+            "type": "string"
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "PostPaymentResponse": {
+        "type": "object",
+        "required": [
+          "id",
+          "status",
+          "transaction_id",
+          "updated"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "transaction_id": {
+            "type": "string"
+          },
+          "updated": {
+            "type": "string"
+          }
+        }
+      },
+      "Error400Response": {
+        "type": "object",
+        "required": [
+          "error_code",
+          "message"
+        ],
+        "properties": {
+          "error_code": {
+            "type": "string",
+            "enum": [
+              "API_VALIDATION_ERROR",
+              "INVALID_PAYMENT_CODE_ERROR",
+              "VALIDATE_AND_CONFIRM_REQUESTS_MISMATCH_ERROR"
+            ]
+          }
+        }
+      },
+      "Error403Response": {
+        "type": "object",
+        "required": [
+          "error_code",
+          "message"
+        ],
+        "properties": {
+          "error_code": {
+            "type": "string",
+            "enum": [
+              "INVALID_API_KEY",
+              "INVALID_SIGNATURE"
+            ]
+          }
+        }
+      },
+      "Error404Response": {
+        "type": "object",
+        "required": [
+          "error_code",
+          "message"
+        ],
+        "properties": {
+          "error_code": {
+            "type": "string",
+            "enum": [
+              "NOT_FOUND_ERROR",
+              "GET_TOPUP_CHANNEL_NOT_FOUND_ERROR",
+              "DATA_NOT_FOUND_ERROR"
+            ]
+          }
+        }
+      },
+      "Error409Response": {
+        "type": "object",
+        "required": [
+          "error_code",
+          "message"
+        ],
+        "properties": {
+          "error_code": {
+            "type": "string",
+            "enum": [
+              "DUPLICATE_TOPUP_ACTIVITY_ERROR"
+            ]
+          }
+        }
+      },
+      "Error500Response": {
+        "type": "object",
+        "required": [
+          "error_code",
+          "message"
+        ],
+        "properties": {
+          "error_code": {
+            "type": "string",
+            "enum": [
+              "FIND_TOPUPACTIVITY_ERROR",
+              "UPDATE_TOPUP_ACTIVITY_ERROR",
+              "SERVER_ERROR"
+            ]
+          }
+        }
+      }
+    }
+  }
+}
